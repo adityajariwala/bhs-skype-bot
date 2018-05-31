@@ -30,7 +30,6 @@ namespace BHSkypeBot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddBot<EchoBot>(options =>
             services.AddBot<LuisBot>(options =>
             {
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
@@ -42,7 +41,7 @@ namespace BHSkypeBot
                 // an "Ooops" message is sent. 
                 options.Middleware.Add(new CatchExceptionMiddleware<Exception>(async (context, exception) =>
                 {
-                    await context.TraceActivity("EchoBot Exception", exception);
+                    await context.TraceActivity("LuisBot Exception", exception);
                     await context.SendActivity("Sorry, it looks like something went wrong!");
                 }));
 
@@ -63,7 +62,7 @@ namespace BHSkypeBot
                 // IStorage dataStore = new Microsoft.Bot.Builder.Azure.AzureTableStorage("AzureTablesConnectionString", "TableName");
                 // IStorage dataStore = new Microsoft.Bot.Builder.Azure.AzureBlobStorage("AzureBlobConnectionString", "containerName");
 
-                options.Middleware.Add(new ConversationState<EchoState>(dataStore));
+                options.Middleware.Add(new ConversationState<ConvInfo>(dataStore));
             });
         }
 

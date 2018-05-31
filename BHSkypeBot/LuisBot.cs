@@ -1,8 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using BHSkypeBot.BotActions;
 using Microsoft.Bot;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Core.Extensions;
@@ -13,7 +14,6 @@ namespace BHSkypeBot
 {
     public class LuisBot : IBot
     {
-
         public async Task OnTurn(ITurnContext context)
         {
             var client = new HttpClient();
@@ -28,7 +28,7 @@ namespace BHSkypeBot
             if (context.Activity.Type == ActivityTypes.Message)
             {
                 // Get the conversation state from the turn context
-                var state = context.GetConversationState<EchoState>();
+                var state = context.GetConversationState<ConvInfo>();
 
                 // Bump the turn count. 
                 state.TurnCount++;
@@ -43,8 +43,28 @@ namespace BHSkypeBot
                 var response = await client.GetAsync(uri);
                 var strResponseContent = await response.Content.ReadAsStringAsync();
                 dynamic ans = JsonConvert.DeserializeObject(strResponseContent);
-                int index = 1;
 
+                IMessageActivity msg;
+
+                switch(ans.topScoringIntent.intent.ToString())
+                {
+                    case "Web.Navigate":
+                        var test = new LinkCard();
+                        msg = test.SendLinkCard(ans);
+                        break;
+                    default:
+                        msg = Activity.CreateMessageActivity();
+                        msg.Text = $"You said: {context.Activity.Text}";
+                        break;
+                }
+                await context.SendActivity(msg);
+            }
+        }
+    }
+}
+
+
+/*              int index = 1;
                 StringBuilder sb = new StringBuilder();
                 sb.Append(
                     $"Query: {ans.query}\n" +
@@ -66,9 +86,4 @@ namespace BHSkypeBot
                     $"Sentiment: {ans.sentimentAnalysis.label}\n" +
                     $"Sentiment Score: {ans.sentimentAnalysis.score}"
                 );
-
-                await context.SendActivity(sb.ToString());
-            }
-        }
-    }
-}
+*/
