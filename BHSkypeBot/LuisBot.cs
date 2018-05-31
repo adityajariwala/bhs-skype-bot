@@ -47,7 +47,16 @@ namespace BHSkypeBot
                 dynamic ans = JsonConvert.DeserializeObject(strResponseContent);
 
                 // Echo back to the user whatever they typed.
-                await context.SendActivity($"{ans}'");
+                await context.SendActivity(
+                    $"Query: {ans.query}\n" +
+                    $"Top Intent: {ans.topScoringIntent.intent}\n" +
+                    $"Top Intent Score: {ans.topScoringIntent.score}\n"  +
+                    $"Top Entity: {ans.entities[0].entity}\n" +
+                    $"Top Entity Type: {ans.entities[0].type}\n" +
+                    $"Top Entity Score: {ans.entities[0].score}\n" +
+                    $"Sentiment: {ans.sentimentAnalysis.label}\n" +
+                    $"Sentiment Score: {ans.sentimentAnalysis.score}"
+                );
             }
         }
     }
