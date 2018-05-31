@@ -16,6 +16,9 @@ namespace BHSkypeBot
     {
         public async Task OnTurn(ITurnContext context)
         {
+            GraphAuth ga = new GraphAuth();
+            await ga.GraphLogIn();
+
             var client = new HttpClient();
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
@@ -24,15 +27,8 @@ namespace BHSkypeBot
 
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
-            // This bot is only handling Messages
             if (context.Activity.Type == ActivityTypes.Message)
             {
-                // Get the conversation state from the turn context
-                var state = context.GetConversationState<ConvInfo>();
-
-                // Bump the turn count. 
-                state.TurnCount++;
-
                 queryString["q"] = context.Activity.Text;
                 queryString["timezoneOffset"] = "-480";
                 queryString["verbose"] = "false";
@@ -64,26 +60,27 @@ namespace BHSkypeBot
 }
 
 
-/*              int index = 1;
-                StringBuilder sb = new StringBuilder();
-                sb.Append(
-                    $"Query: {ans.query}\n" +
-                    $"Top Intent: {ans.topScoringIntent.intent}\n" +
-                    $"Top Intent Score: {ans.topScoringIntent.score}\n"
-                );
+/*              
+int index = 1;
+StringBuilder sb = new StringBuilder();
+sb.Append(
+    $"Query: {ans.query}\n" +
+    $"Top Intent: {ans.topScoringIntent.intent}\n" +
+    $"Top Intent Score: {ans.topScoringIntent.score}\n"
+);
 
-                foreach (dynamic o in ans.entities)
-                {
-                    sb.Append(
-                     $"Entity {index}: {o.entity}\n" +
-                     $"Entity {index} Type: {o.type}\n" +
-                     $"Entity {index} Score: {o.score}\n"
-                    );
-                    index++;
-                }
+foreach (dynamic o in ans.entities)
+{
+    sb.Append(
+        $"Entity {index}: {o.entity}\n" +
+        $"Entity {index} Type: {o.type}\n" +
+        $"Entity {index} Score: {o.score}\n"
+    );
+    index++;
+}
 
-                sb.Append(
-                    $"Sentiment: {ans.sentimentAnalysis.label}\n" +
-                    $"Sentiment Score: {ans.sentimentAnalysis.score}"
-                );
+sb.Append(
+    $"Sentiment: {ans.sentimentAnalysis.label}\n" +
+    $"Sentiment Score: {ans.sentimentAnalysis.score}"
+);
 */
