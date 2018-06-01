@@ -1,9 +1,28 @@
-# bhs-skype-bot
-This is a bot utilizing LUIS NLP to help out with office functions
+# HackathonSkypeBot
+<h2>ASP.Net Skypebot for BHS Hackathon</h2>
 
-This project was created during a company Hackathon 5/31/18
+<h4>Open the .sln file with VS 2017</h4>
+<h4>Run IIS Express</h4>
 
-Some desired functions include looking up company members, emails, numbers, sending emails, setting notes and reminders, 
-checking room and people availibility to begin with
+<h4>Open Bot Framework Emulator (https://github.com/Microsoft/BotFramework-Emulator/releases)</h4>
+<ul><li>And connect to "http://localhost:{{your_port}}/api/messages"</li></ul>
 
-Built using C# and LUIS NLP to be hosted on Microsoft Bot Network and ported to Skype for Business
+<h4>Skype commands:</h4>
+<ul>
+	<li>count -> message</li>
+	<li>count {{message}}</li>
+	<li>echo -> message</li>
+	<li>echo {{message}}</li>
+	<li>luis -> message</li>
+	<li>luis {{message}}</li>
+	<li>old luis -> message</li>
+	<li>old luis {{message}}</li>
+</ul> 
+  
+  
+  
+  
+  
+  
+  
+  
