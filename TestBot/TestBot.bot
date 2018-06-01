@@ -3,13 +3,15 @@
     "description": "",
     "secretKey": "",
     "services": [
-        {
-            "id": "http://localhost:3978/api/messages",
-            "name": "TestBot",
-            "type": "endpoint",
-            "appId": "fdf8a967-79bb-44b8-a633-7a598238f3a3",
-            "appPassword": "(7w0}_?(9OeYfM}_",
-            "endpoint": "http://localhost:3978/api/messages"
-        }
+      {
+        "id": "https://bhsbot.azurewebsites.net/api/messages",
+        "name": "TestBot",
+        "type": "endpoint",
+        "appId": "fdf8a967-79bb-44b8-a633-7a598238f3a3",
+        "appPassword": "(7w0}_?(9OeYfM}_",
+        //"appId": "9c573cb6-dba5-4f92-bd86-c9e32631cf0a",
+        //"appPassword": "jaXTJIEI69;mjdyqO082(_)",
+        "endpoint": "https://bhsbot.azurewebsites.net/api/messages"
+      }
     ]
 }
